@@ -1,0 +1,9 @@
+<div>
+  <label>body:
+    <input [(ngModel)]="body" placeholder="body">
+  </label>
+  <label>who:
+    <input [(ngModel)]="sender" placeholder="sender">
+  </label>
+</div>
+<button (click)="addMessage(body, sender)">Add</button>

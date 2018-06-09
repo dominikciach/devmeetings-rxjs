@@ -22,5 +22,8 @@
   <li class="text" *ngFor="let item of items | async">
     Timestamp: {{item.timestamp}}
     Sender: {{item.sender}}
+    Body: {{item.body}}
+    <button (click)="remove(item)">Delete</button>
   </li>
 </ul>
+<app-new-message></app-new-message>

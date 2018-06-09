@@ -8,6 +8,7 @@ import { HeroesComponent } from './heroes.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
+import { NewMessageComponent } from './new-message/new-message.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { environment } from '../environments/environment';
   ],
   declarations: [
     AppComponent,
-    HeroesComponent
+    HeroesComponent,
+    NewMessageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
