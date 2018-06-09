@@ -23,7 +23,24 @@
     Timestamp: {{item.timestamp}}
     Sender: {{item.sender}}
     Body: {{item.body}}
-    <button (click)="remove(item)">Delete</button>
+    Image: {{item.image}}
+    Link: {{item.link}}
+    <button (click)="deletedSubject.next(item)">Delete</button>
   </li>
 </ul>
-<app-new-message></app-new-message>
+<app-new-message (formSubmit)="addMessage($event)" [submitButtonText]="'Add message'"></app-new-message>
+#############################
+<h2>Last links:</h2>
+<ul>
+  <li class="text" *ngFor="let item of lastLinks$ | async">
+    <a href="{{item}}">{{item}}</a>
+  </li>
+</ul>
+
+#############################
+<h2>Last images:</h2>
+<ul>
+  <li class="text" *ngFor="let item of lastImages$ | async">
+    <img src="{{item}}"/>
+  </li>
+</ul>

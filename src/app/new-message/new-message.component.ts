@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection  } from 'angularfire2/firestore';
-import { IMessage } from '../models/imessage';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-message',
   templateUrl: './new-message.component.html',
   styleUrls: ['./new-message.component.css']
 })
-export class NewMessageComponent implements OnInit {
-  body: string;
-  messagesCollection: AngularFirestoreCollection<IMessage>;
-  constructor(private db: AngularFirestore) {
-    this.messagesCollection = db.collection<IMessage>('messages');
-  }
+export class NewMessageComponent {
 
-  ngOnInit() {
-  }
+  @Input() public submitButtonText = 'Submit';
+  public form: FormGroup;
 
-  addMessage(body: string, sender: string): void {
-    this.messagesCollection.add({ sender: sender, body: body, timestamp: new Date().toString() });
+  @Output() formSubmit = new EventEmitter();
+  formSubmitSubject = new Subject();
+
+  constructor(private formBuilder: FormBuilder) {
+      this.form = formBuilder.group({
+          body: ['', Validators.required],
+          sender: ['', Validators.required],
+          image: [''],
+          link: ['']
+      });
+
+      this.formSubmitSubject
+          .pipe(
+              filter(() => this.form.valid),
+              map(() => this.form.value)
+          )
+          .subscribe(this.formSubmit);
   }
 }
